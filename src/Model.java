@@ -32,6 +32,7 @@ public class Model
 	private DAYS[] arrayOfDays = DAYS.values();
 
 	ArrayList<EventData> eventData;
+	char dataBreakRef;
 
 	/**
 	 * This is the constructor and the constructor initializes the data and if
@@ -44,7 +45,7 @@ public class Model
 		events = new HashMap<GregorianCalendar, ArrayList<Event>>();
 
 		eventData = new ArrayList<EventData>();
-		new EventReader().read(eventData);
+		new EventReader().read(eventData,dataBreakRef);
 
 		File file = new File("event.ser");
 		if (file.exists())

@@ -418,7 +418,7 @@ public class EventView
 				}
 
 				// EventWriter TEST
-				EventWriter eWriter = new EventWriter();
+				EventWriter eWriter = new EventWriter(m.dataBreakRef);
 				eWriter.write(m.eventData);
 			}
 		});

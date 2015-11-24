@@ -5,16 +5,19 @@ import java.util.ArrayList;
 
 public class EventWriter
 {
-	public EventWriter()
+	char breakRef;
+	
+	public EventWriter(char b)
 	{
+		breakRef = b;
 	}
 	
 	public void write(ArrayList<EventData> e)
 	{
-		String save = "";
+		String save = breakRef+"\n";
 		for(EventData w: e)
 		{
-			save += w.date[0]+" "+w.date[1]+" "+w.date[2]+" "+w.time.getTimecode()+" "+w.name+" "+(char)176+" "+w.location+" "+(char)176+" "+w.description+" "+(char)176;
+			save += w.date[0]+" "+w.date[1]+" "+w.date[2]+" "+w.time.getTimecode()+" "+w.name+" "+breakRef+" "+w.location+" "+breakRef+" "+w.description+" "+breakRef;
 			if(w.alarm != null)
 				save += " "+w.alarm.date[0]+" "+w.alarm.date[1]+" "+w.alarm.date[2]+" "+w.alarm.time.getTimecode();
 			if(e.indexOf(w) < e.size()-1)

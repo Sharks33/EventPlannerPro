@@ -286,7 +286,6 @@ public class AlarmView extends MonthlyView
 		JFrame frame = new JFrame("Event Planner Pro");
 		frame.setSize(600, 400);
 		frame.setLayout(new BorderLayout());
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBackground(Color.WHITE);
 
 		frame.add(upperPannel, BorderLayout.NORTH);

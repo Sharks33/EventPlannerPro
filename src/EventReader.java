@@ -5,16 +5,21 @@ import java.util.Scanner;
 
 public class EventReader
 {
+	char breakRef;
 	public EventReader()
 	{
 		
 	}
 	
-	public void read(ArrayList<EventData> e)
+	public void read(ArrayList<EventData> e, char b)
 	{
 		try
 		{
 			Scanner eReader = new Scanner(new File(System.getProperty("user.dir")+"/src/events.epp"));
+			breakRef = eReader.next().charAt(0);
+			b = breakRef;
+			eReader.nextLine();
+			
 			while(eReader.hasNextLine())
 			{
 				String l = eReader.nextLine();
@@ -27,7 +32,7 @@ public class EventReader
 				while(lReader.hasNext() && info.size() < 3)
 				{
 					String s = lReader.next();
-					if(s.charAt(0) == 176)
+					if(s.charAt(0) == breakRef)
 					{
 						info.add(i);
 						i = "";
