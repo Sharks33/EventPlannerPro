@@ -32,7 +32,6 @@ public class DailyView
 
 	public DailyView(ArrayList<EventData> e)
 	{
-		events = e;
 	}
 
 	static EventView ae = new EventView();
@@ -40,7 +39,13 @@ public class DailyView
 	//Removed static field Model m and made it a parameter so it pulls the most recent model
 	public static void createAndShowDailyViewGUI(final Model m)
 	{
-
+		events = new ArrayList<EventData>();
+		for(EventData d: m.eventData)
+		{
+			if(d.date[0] == MONTHS.valueOf(m.getCurrentMonth()+"").ordinal()+1 && d.date[1] == m.getCurrentDay() && d.date[2] == m.getCurrentYear())
+				events.add(d);
+		}
+		
 		final Color babyTeal = new Color(142, 229, 238);
 		Font railWayBig = new Font("Raleway-Regular", Font.PLAIN, 26);
 		Font railWayBigBold = new Font("Raleway-Regular", Font.BOLD, 26);
@@ -175,6 +180,12 @@ public class DailyView
 
 		JLabel dailyView12AMLabel = new JLabel("12 AM ");
 		dailyView12AMLabel.setFont(railWay);
+		for(EventData d: events)
+		{
+			if(d.time.hour == 0)
+				dailyView12AMLabel.setText(dailyView12AMLabel.getText()+"   "+d.name+" "+d.time.toString()+" "+d.location+" "+d.description);
+		}
+		
 		dailyView12AMPanel.add(dailyView12AMLabel);
 
 		JPanel dailyView1AMPanel = new JPanel();

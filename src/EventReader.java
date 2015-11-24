@@ -18,7 +18,8 @@ public class EventReader
 			Scanner eReader = new Scanner(new File(System.getProperty("user.dir")+"/src/events.epp"));
 			breakRef = eReader.next().charAt(0);
 			b = breakRef;
-			eReader.nextLine();
+			if(eReader.hasNextLine())
+				eReader.nextLine();
 			
 			while(eReader.hasNextLine())
 			{

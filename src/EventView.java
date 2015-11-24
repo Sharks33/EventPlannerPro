@@ -216,11 +216,14 @@ public class EventView
 		//If an event already exists, place its time in the combo boxes (Derick)
 		if(n != -1)
     	{
+			int hour = m.eventData.get(n).time.hour;
+			if(hour == 0)
+				hour = 12;
     		String min = m.eventData.get(n).time.min+"";
     		if(m.eventData.get(n).time.min < 10)
     			min = "0"+min;
     		
-    		eventTimeHour.setSelectedIndex(java.util.Arrays.asList(HOURS).indexOf(m.eventData.get(n).time.hour));
+    		eventTimeHour.setSelectedIndex(java.util.Arrays.asList(HOURS).indexOf(hour));
     		eventTimeMinute.setSelectedIndex(java.util.Arrays.asList(MINUTES).indexOf(min));
     		eventTimeMeridiem.setSelectedIndex(java.util.Arrays.asList(MERIDIEM).indexOf(m.eventData.get(n).time.meridiem));
     	}
@@ -397,7 +400,10 @@ public class EventView
 						* 100
 						+ Integer.parseInt((String) eventTimeMinute
 								.getSelectedItem());
-				if (eventTimeMeridiem.getSelectedItem().equals("PM"))
+				System.out.println((int) eventTimeHour.getSelectedItem()+" "+eventTimeMeridiem.getSelectedItem().equals("PM"));
+				if(eventTimeMeridiem.getSelectedItem().equals("AM") && (int)eventTimeHour.getSelectedItem() == 12)
+					time -= 1200;
+				else if(eventTimeMeridiem.getSelectedItem().equals("PM"))
 					time += 1200;
 
 				int[] dateTime = new int[]
