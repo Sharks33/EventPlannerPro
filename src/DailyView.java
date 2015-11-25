@@ -48,7 +48,7 @@ public class DailyView
 		
 		final Color babyTeal = new Color(142, 229, 238);
 		Font railWayBig = new Font("Raleway-Regular", Font.PLAIN, 26);
-		Font railWayBigBold = new Font("Raleway-Regular", Font.BOLD, 26);
+		Font railWayBigBold = new Font("Raleway-Regular", Font.BOLD, 36);
 		Font railWay = new Font("Raleway-Regular", Font.PLAIN, 12);
 
 		java.io.InputStream is = DailyView.class
@@ -100,7 +100,7 @@ public class DailyView
 
 		final JButton addButton = new JButton("+");
 		addButton.setPreferredSize(new Dimension(80, 28));
-		addButton.setFont(railWayBig);
+		addButton.setFont(railWayBigBold);
 		upperRightPannel.add(addButton);
 
 		addButton.setBackground(babyTeal);
@@ -148,7 +148,9 @@ public class DailyView
 						n = m.eventData.indexOf(d);
 				}
 				EventView.createAndShowGUI(m,n);
+				
 			}
+			
 		});
 
 		// UPPER BOTTOM LEFT
@@ -182,10 +184,9 @@ public class DailyView
 		dailyView12AMLabel.setFont(railWay);
 		for(EventData d: events)
 		{
-			if(d.time.hour == 0)
-				dailyView12AMLabel.setText(dailyView12AMLabel.getText()+"   "+d.name+" "+d.time.toString()+" "+d.location+" "+d.description);
+			if(d.time.hour == 0 && d.time.meridiem == "AM")
+				dailyView12AMLabel.setText(dailyView12AMLabel.getText()+"   "+d.name+" "+d.time.toString()+" "+d.location+" "+d.description+"           ");
 		}
-		
 		dailyView12AMPanel.add(dailyView12AMLabel);
 
 		JPanel dailyView1AMPanel = new JPanel();
@@ -194,6 +195,11 @@ public class DailyView
 
 		JLabel dailyView1AMLabel = new JLabel("1 AM ");
 		dailyView1AMLabel.setFont(railWay);
+		for(EventData d: events)
+		{
+			if(d.time.hour == 1 && d.time.meridiem == "AM")
+				dailyView1AMLabel.setText(dailyView1AMLabel.getText()+"   "+d.name+" "+d.time.toString()+" "+d.location+" "+d.description+"           ");
+		}
 		dailyView1AMPanel.add(dailyView1AMLabel);
 
 		JPanel dailyView2AMPanel = new JPanel();
@@ -203,6 +209,11 @@ public class DailyView
 
 		JLabel dailyView2AMLabel = new JLabel("2 AM ");
 		dailyView2AMLabel.setFont(railWay);
+		for(EventData d: events)
+		{
+			if(d.time.hour == 2 && d.time.meridiem == "AM")
+				dailyView2AMLabel.setText(dailyView2AMLabel.getText()+"   "+d.name+" "+d.time.toString()+" "+d.location+" "+d.description+"           ");
+		}
 		dailyView2AMPanel.add(dailyView2AMLabel);
 
 		JPanel dailyView3AMPanel = new JPanel();
@@ -211,6 +222,11 @@ public class DailyView
 
 		JLabel dailyView3AMLabel = new JLabel("3 AM ");
 		dailyView3AMLabel.setFont(railWay);
+		for(EventData d: events)
+		{
+			if(d.time.hour == 3 && d.time.meridiem == "AM")
+				dailyView3AMLabel.setText(dailyView3AMLabel.getText()+"   "+d.name+" "+d.time.toString()+" "+d.location+" "+d.description+"           ");
+		}
 		dailyView3AMPanel.add(dailyView3AMLabel);
 
 		JPanel dailyView4AMPanel = new JPanel();
@@ -220,6 +236,11 @@ public class DailyView
 
 		JLabel dailyView4AMLabel = new JLabel("4 AM ");
 		dailyView4AMLabel.setFont(railWay);
+		for(EventData d: events)
+		{
+			if(d.time.hour == 4 && d.time.meridiem == "AM")
+				dailyView4AMLabel.setText(dailyView4AMLabel.getText()+"   "+d.name+" "+d.time.toString()+" "+d.location+" "+d.description+"           ");
+		}
 		dailyView4AMPanel.add(dailyView4AMLabel);
 
 		JPanel dailyView5AMPanel = new JPanel();
@@ -228,6 +249,11 @@ public class DailyView
 
 		JLabel dailyView5AMLabel = new JLabel("5 AM ");
 		dailyView5AMLabel.setFont(railWay);
+		for(EventData d: events)
+		{
+			if(d.time.hour == 5 && d.time.meridiem == "AM")
+				dailyView5AMLabel.setText(dailyView5AMLabel.getText()+"   "+d.name+" "+d.time.toString()+" "+d.location+" "+d.description+"           ");
+		}
 		dailyView5AMPanel.add(dailyView5AMLabel);
 
 		JPanel dailyView6AMPanel = new JPanel();
@@ -237,6 +263,11 @@ public class DailyView
 
 		JLabel dailyView6AMLabel = new JLabel("6 AM ");
 		dailyView6AMLabel.setFont(railWay);
+		for(EventData d: events)
+		{
+			if(d.time.hour == 6 && d.time.meridiem == "AM")
+				dailyView6AMLabel.setText(dailyView6AMLabel.getText()+"   "+d.name+" "+d.time.toString()+" "+d.location+" "+d.description+"           ");
+		}
 		dailyView6AMPanel.add(dailyView6AMLabel);
 
 		JPanel dailyView7AMPanel = new JPanel();
@@ -245,6 +276,11 @@ public class DailyView
 
 		JLabel dailyView7AMLabel = new JLabel("7 AM ");
 		dailyView7AMLabel.setFont(railWay);
+		for(EventData d: events)
+		{
+			if(d.time.hour == 7 && d.time.meridiem == "AM")
+				dailyView7AMLabel.setText(dailyView7AMLabel.getText()+"   "+d.name+" "+d.time.toString()+" "+d.location+" "+d.description+"           ");
+		}
 		dailyView7AMPanel.add(dailyView7AMLabel);
 
 		JPanel dailyView8AMPanel = new JPanel();
@@ -254,6 +290,11 @@ public class DailyView
 
 		JLabel dailyView8AMLabel = new JLabel("8 AM ");
 		dailyView8AMLabel.setFont(railWay);
+		for(EventData d: events)
+		{
+			if(d.time.hour == 8 && d.time.meridiem == "AM")
+				dailyView8AMLabel.setText(dailyView8AMLabel.getText()+"   "+d.name+" "+d.time.toString()+" "+d.location+" "+d.description+"           ");
+		}
 		dailyView8AMPanel.add(dailyView8AMLabel);
 
 		JPanel dailyView9AMPanel = new JPanel();
@@ -262,6 +303,11 @@ public class DailyView
 
 		JLabel dailyView9AMLabel = new JLabel("9 AM ");
 		dailyView9AMLabel.setFont(railWay);
+		for(EventData d: events)
+		{
+			if(d.time.hour == 9 && d.time.meridiem == "AM")
+				dailyView9AMLabel.setText(dailyView9AMLabel.getText()+"   "+d.name+" "+d.time.toString()+" "+d.location+" "+d.description+"           ");
+		}
 		dailyView9AMPanel.add(dailyView9AMLabel);
 
 		JPanel dailyView10AMPanel = new JPanel();
@@ -271,6 +317,11 @@ public class DailyView
 
 		JLabel dailyView10AMLabel = new JLabel("10 AM ");
 		dailyView10AMLabel.setFont(railWay);
+		for(EventData d: events)
+		{
+			if(d.time.hour == 10 && d.time.meridiem == "AM")
+				dailyView10AMLabel.setText(dailyView10AMLabel.getText()+"   "+d.name+" "+d.time.toString()+" "+d.location+" "+d.description+"           ");
+		}
 		dailyView10AMPanel.add(dailyView10AMLabel);
 
 		JPanel dailyView11AMPanel = new JPanel();
@@ -279,6 +330,11 @@ public class DailyView
 
 		JLabel dailyView11AMLabel = new JLabel("11 AM ");
 		dailyView11AMLabel.setFont(railWay);
+		for(EventData d: events)
+		{
+			if(d.time.hour == 11 && d.time.meridiem == "AM")
+				dailyView11AMLabel.setText(dailyView11AMLabel.getText()+"   "+d.name+" "+d.time.toString()+" "+d.location+" "+d.description+"           ");
+		}
 		dailyView11AMPanel.add(dailyView11AMLabel);
 
 		JPanel dailyView12PMPanel = new JPanel();
@@ -288,6 +344,11 @@ public class DailyView
 
 		JLabel dailyView12PMLabel = new JLabel("12 PM ");
 		dailyView12PMLabel.setFont(railWay);
+		for(EventData d: events)
+		{
+			if(d.time.hour == 12 && d.time.meridiem == "PM")
+				dailyView12PMLabel.setText(dailyView12PMLabel.getText()+"   "+d.name+" "+d.time.toString()+" "+d.location+" "+d.description+"           ");
+		}
 		dailyView12PMPanel.add(dailyView12PMLabel);
 
 		JPanel dailyView1PMPanel = new JPanel();
@@ -296,6 +357,11 @@ public class DailyView
 
 		JLabel dailyView1PMLabel = new JLabel("1 PM ");
 		dailyView1PMLabel.setFont(railWay);
+		for(EventData d: events)
+		{
+			if(d.time.hour == 1 && d.time.meridiem == "PM")
+				dailyView1PMLabel.setText(dailyView1PMLabel.getText()+"   "+d.name+" "+d.time.toString()+" "+d.location+" "+d.description+"           ");
+		}
 		dailyView1PMPanel.add(dailyView1PMLabel);
 
 		JPanel dailyView2PMPanel = new JPanel();
@@ -305,6 +371,11 @@ public class DailyView
 
 		JLabel dailyView2PMLabel = new JLabel("2 PM ");
 		dailyView2PMLabel.setFont(railWay);
+		for(EventData d: events)
+		{
+			if(d.time.hour == 2 && d.time.meridiem == "PM")
+				dailyView2PMLabel.setText(dailyView2PMLabel.getText()+"   "+d.name+" "+d.time.toString()+" "+d.location+" "+d.description+"           ");
+		}
 		dailyView2PMPanel.add(dailyView2PMLabel);
 
 		JPanel dailyView3PMPanel = new JPanel();
@@ -313,6 +384,11 @@ public class DailyView
 
 		JLabel dailyView3PMLabel = new JLabel("3 PM ");
 		dailyView3PMLabel.setFont(railWay);
+		for(EventData d: events)
+		{
+			if(d.time.hour == 3 && d.time.meridiem == "PM")
+				dailyView3PMLabel.setText(dailyView3PMLabel.getText()+"   "+d.name+" "+d.time.toString()+" "+d.location+" "+d.description+"           ");
+		}
 		dailyView3PMPanel.add(dailyView3PMLabel);
 
 		JPanel dailyView4PMPanel = new JPanel();
@@ -322,6 +398,11 @@ public class DailyView
 
 		JLabel dailyView4PMLabel = new JLabel("4 PM ");
 		dailyView4PMLabel.setFont(railWay);
+		for(EventData d: events)
+		{
+			if(d.time.hour == 4 && d.time.meridiem == "PM")
+				dailyView4PMLabel.setText(dailyView4PMLabel.getText()+"   "+d.name+" "+d.time.toString()+" "+d.location+" "+d.description+"           ");
+		}
 		dailyView4PMPanel.add(dailyView4PMLabel);
 
 		JPanel dailyView5PMPanel = new JPanel();
@@ -330,6 +411,11 @@ public class DailyView
 
 		JLabel dailyView5PMLabel = new JLabel("5 PM ");
 		dailyView5PMLabel.setFont(railWay);
+		for(EventData d: events)
+		{
+			if(d.time.hour == 5 && d.time.meridiem == "PM")
+				dailyView5PMLabel.setText(dailyView5PMLabel.getText()+"   "+d.name+" "+d.time.toString()+" "+d.location+" "+d.description+"           ");
+		}
 		dailyView5PMPanel.add(dailyView5PMLabel);
 
 		JPanel dailyView6PMPanel = new JPanel();
@@ -339,6 +425,11 @@ public class DailyView
 
 		JLabel dailyView6PMLabel = new JLabel("6 PM ");
 		dailyView6PMLabel.setFont(railWay);
+		for(EventData d: events)
+		{
+			if(d.time.hour == 6 && d.time.meridiem == "PM")
+				dailyView6PMLabel.setText(dailyView6PMLabel.getText()+"   "+d.name+" "+d.time.toString()+" "+d.location+" "+d.description+"           ");
+		}
 		dailyView6PMPanel.add(dailyView6PMLabel);
 
 		JPanel dailyView7PMPanel = new JPanel();
@@ -347,6 +438,11 @@ public class DailyView
 
 		JLabel dailyView7PMLabel = new JLabel("7 PM ");
 		dailyView7PMLabel.setFont(railWay);
+		for(EventData d: events)
+		{
+			if(d.time.hour == 7 && d.time.meridiem == "PM")
+				dailyView7PMLabel.setText(dailyView7PMLabel.getText()+"   "+d.name+" "+d.time.toString()+" "+d.location+" "+d.description+"           ");
+		}
 		dailyView7PMPanel.add(dailyView7PMLabel);
 
 		JPanel dailyView8PMPanel = new JPanel();
@@ -356,6 +452,11 @@ public class DailyView
 
 		JLabel dailyView8PMLabel = new JLabel("8 PM ");
 		dailyView8PMLabel.setFont(railWay);
+		for(EventData d: events)
+		{
+			if(d.time.hour == 8 && d.time.meridiem == "PM")
+				dailyView8PMLabel.setText(dailyView8PMLabel.getText()+"   "+d.name+" "+d.time.toString()+" "+d.location+" "+d.description+"           ");
+		}
 		dailyView8PMPanel.add(dailyView8PMLabel);
 
 		JPanel dailyView9PMPanel = new JPanel();
@@ -364,6 +465,11 @@ public class DailyView
 
 		JLabel dailyView9PMLabel = new JLabel("9 PM ");
 		dailyView9PMLabel.setFont(railWay);
+		for(EventData d: events)
+		{
+			if(d.time.hour == 9 && d.time.meridiem == "PM")
+				dailyView9PMLabel.setText(dailyView9PMLabel.getText()+"   "+d.name+" "+d.time.toString()+" "+d.location+" "+d.description+"           ");
+		}
 		dailyView9PMPanel.add(dailyView9PMLabel);
 
 		JPanel dailyView10PMPanel = new JPanel();
@@ -373,6 +479,11 @@ public class DailyView
 
 		JLabel dailyView10PMLabel = new JLabel("10 PM ");
 		dailyView10PMLabel.setFont(railWay);
+		for(EventData d: events)
+		{
+			if(d.time.hour == 10 && d.time.meridiem == "PM")
+				dailyView10PMLabel.setText(dailyView10PMLabel.getText()+"   "+d.name+" "+d.time.toString()+" "+d.location+" "+d.description+"           ");
+		}
 		dailyView10PMPanel.add(dailyView10PMLabel);
 
 		JPanel dailyView11PMPanel = new JPanel();
@@ -381,10 +492,15 @@ public class DailyView
 
 		JLabel dailyView11PMLabel = new JLabel("11 PM ");
 		dailyView11PMLabel.setFont(railWay);
+		for(EventData d: events)
+		{
+			if(d.time.hour == 11 && d.time.meridiem == "PM")
+				dailyView11PMLabel.setText(dailyView11PMLabel.getText()+"   "+d.name+" "+d.time.toString()+" "+d.location+" "+d.description+"           ");
+		}
 		dailyView11PMPanel.add(dailyView11PMLabel);
 
 		// FRAME
-		JFrame dailyView = new JFrame("Event Planner Pro");
+		final JFrame dailyView = new JFrame("Event Planner Pro");
 		dailyView.setLayout(new BorderLayout());
 		dailyView.setBackground(Color.WHITE);
 
@@ -394,6 +510,26 @@ public class DailyView
 		// Display the window.
 		dailyView.pack();
 		dailyView.setVisible(true);
+		
+		
+		addButton.addActionListener(new ActionListener()
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+//				//If an event exists on this day, pulls the index of event for EventView (Derick)
+//				int n = -1;
+//				for(EventData d: m.eventData)
+//				{
+//					if(d.date[0] == MONTHS.valueOf(m.getCurrentMonth()+"").ordinal()+1 && d.date[1] == m.getCurrentDay() && d.date[2] == m.getCurrentYear())
+//						n = m.eventData.indexOf(d);
+//				}
+//				EventView.createAndShowGUI(m,n);
+				dailyView.setVisible(false);
+			}
+			
+		});
 
 	}
 
