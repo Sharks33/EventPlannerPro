@@ -26,6 +26,6 @@ public class Time
 	@Override
 	public String toString()
 	{
-		return hour+":"+((min < 9) ? "0" : "")+min+" "+meridiem;
+		return ((hour == 0) ? 12 : hour)+":"+((min < 9) ? "0" : "")+min+" "+meridiem;
 	}
 }

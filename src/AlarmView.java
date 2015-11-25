@@ -37,22 +37,12 @@ public class AlarmView extends MonthlyView
 	
 	static Alarm alarm;
 	
-	Time time;
-	int[] date;
-
 	public AlarmView(Model m)
 	{
 		super(m);
 	}
-
-	// public Alarm(int[] t)
-	// {
-	// time = new Time(t[3]);
-	// date = new int[]
-	// { t[0], t[1], t[2] };
-	// }TEST
-
-	public static void AddAlarmGUI()
+	
+	public static void AddAlarmGUI(Model m)
 	{
 		final Color babyTeal = new Color(142, 229, 238);
 		Font railWayBig = new Font("Raleway-Regular", Font.PLAIN, 26);
@@ -68,11 +58,9 @@ public class AlarmView extends MonthlyView
 
 		} catch (FontFormatException e1)
 		{
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (IOException e1)
 		{
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
@@ -200,25 +188,32 @@ public class AlarmView extends MonthlyView
 		timeLabel.setFont(railWay);
 		TimeDatePanel.add(timeLabel);
 
-		JPanel eventTimeComboBoxes = new JPanel();
-		eventTimeComboBoxes.setBackground(Color.WHITE);
-		eventTimeComboBoxes.setLayout(new GridLayout(1, 3, 6, 0));
+		JPanel timeComboBoxes = new JPanel();
+		timeComboBoxes.setBackground(Color.WHITE);
+		timeComboBoxes.setLayout(new GridLayout(1, 3, 6, 0));
 
-		JComboBox<Integer> eventTimeHour = new JComboBox<Integer>(
+		final JComboBox<Integer> timeHour = new JComboBox<Integer>(
 				EventView.HOURS);
-		JComboBox<String> eventTimeMinute = new JComboBox<String>(
+		final JComboBox<String> timeMinute = new JComboBox<String>(
 				EventView.MINUTES);
-		JComboBox<String> eventTimeMeridiem = new JComboBox<String>(
+		final JComboBox<String> timeMeridiem = new JComboBox<String>(
 				EventView.MERIDIEM);
-		eventTimeComboBoxes.add(eventTimeHour);
-		eventTimeComboBoxes.add(eventTimeMinute);
-		eventTimeComboBoxes.add(eventTimeMeridiem);
-
-		TimeDatePanel.add(eventTimeComboBoxes);
-
-		// JTextField timeTextField = new JTextField(25);
-		// TimeDatePanel.add(timeTextField);
-
+		timeComboBoxes.add(timeHour);
+		timeComboBoxes.add(timeMinute);
+		timeComboBoxes.add(timeMeridiem);
+		
+		if(alarm != null)
+		{
+    		String min = alarm.time.min+"";
+    		if(alarm.time.min < 10)
+    			min = "0"+min;
+    		
+    		timeHour.setSelectedIndex(java.util.Arrays.asList(HOURS).indexOf(alarm.time.hour));
+    		timeMinute.setSelectedIndex(java.util.Arrays.asList(MINUTES).indexOf(min));
+    		timeMeridiem.setSelectedIndex(java.util.Arrays.asList(MERIDIEM).indexOf(alarm.time.meridiem));
+    	}
+		TimeDatePanel.add(timeComboBoxes);
+		
 		JPanel extraSpacePanel = new JPanel();
 		extraSpacePanel.setBackground(Color.WHITE);
 		extraSpacePanel.setLayout(new FlowLayout(10, 10, 10));
@@ -228,7 +223,16 @@ public class AlarmView extends MonthlyView
 		dateLabel.setFont(railWay);
 		TimeDatePanel.add(dateLabel);
 
-		JTextField dateTextField = new JTextField(25);
+		final JTextField dateTextField = new JTextField(25);
+		if(alarm != null)
+    	{
+    		String date[] = new String[]{alarm.date[0]+"",alarm.date[1]+""};
+    		if(alarm.date[0] < 10)
+    			date[0] = "0"+date[0];
+    		if(alarm.date[1] < 10)
+    			date[1] = "0"+date[1];
+    		dateTextField.setText(date[0]+"/"+date[1]+"/"+alarm.date[2]);
+    	}
 		TimeDatePanel.add(dateTextField);
 
 		JPanel eventCancelPanel = new JPanel();
@@ -275,12 +279,50 @@ public class AlarmView extends MonthlyView
 		{
 			public void actionPerformed(ActionEvent evt)
 			{
-
+				
 			}
 		});
 
 		lowerPanel.add(eventCancelPanel);
-
+		
+		saveButton.addActionListener(
+		    	new ActionListener()
+	    		{
+	    			public void actionPerformed(ActionEvent evt)
+	    			{
+	    				int[] date;
+	    				try
+	    				{
+	    					date = new int[]{Integer.parseInt(dateTextField.getText().substring(0,2)),Integer.parseInt(dateTextField.getText().substring(3,5)),Integer.parseInt(dateTextField.getText().substring(6))};
+	    				}
+	    				catch(StringIndexOutOfBoundsException e)
+	    				{
+	    					System.out.println("ERROR: Invalid date. Event cannot be made.");
+	    					System.out.println();
+	    					return;
+	    				}
+	    				
+	    				int time = (int)timeHour.getSelectedItem()*100+Integer.parseInt((String)timeMinute.getSelectedItem());
+	    				if(timeMeridiem.getSelectedItem().equals("AM") && (int)timeHour.getSelectedItem() == 12)
+	    					time -= 1200;
+	    				else if(timeMeridiem.getSelectedItem().equals("PM") && (int)timeHour.getSelectedItem() != 12)
+	    					time += 1200;
+	    				
+	    				alarm = new Alarm(new int[]{date[0],date[1],date[2],time});
+	    			}
+	    		}
+		    );
+			
+	 		removeButton.addActionListener(
+				new ActionListener()
+				{
+					public void actionPerformed(ActionEvent evt)
+					{
+						alarm = null;
+					}
+				}
+			);
+		
 		// Create and set up the window.
 
 		JFrame frame = new JFrame("Event Planner Pro");
@@ -294,21 +336,5 @@ public class AlarmView extends MonthlyView
 		// Display the window.
 		frame.pack();
 		frame.setVisible(true);
-	}
-
-	// public void setTime(/* String s */)
-	// {
-	//
-	// int t = 0; for(int i = 0; i < s.length(); i++) { if(s.charAt(i) >= 48 &&
-	// s.charAt(i) <= 57) { t *= 10; t +=
-	// Character.getNumericValue(s.charAt(i))-48; } } time = new Time(t);
-	//
-	// }
-
-	// Returns time for editing in EventView
-	// Might not have to be a string
-	public String getTime()
-	{
-		return time.toString();
 	}
 }

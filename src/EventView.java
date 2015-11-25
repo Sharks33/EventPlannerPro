@@ -41,7 +41,7 @@ public class EventView
 	static AlarmView aView;
 	
 	// If an event already exists, n is the index of the event from model. If event does not exist, n = -1. (Derick)
-	public static void createAndShowGUI(final Model m, int n)
+	public static void createAndShowGUI(final Model m, final int n)
 	{
 		final Color babyTeal = new Color(142, 229, 238);
 		Font railWayBig = new Font("Raleway-Regular", Font.PLAIN, 26);
@@ -66,6 +66,7 @@ public class EventView
 		}
 		
 		aView = new AlarmView(m);
+		aView.alarm = null;
 		
 		// UPPER GUI
 		JPanel upperPannel = new JPanel();
@@ -188,8 +189,8 @@ public class EventView
 		eventNamePanel.add(eventNameField);
 		
 		//If an event already exists, place its name in the text field (Derick)
-		if(n != -1)
-    		eventNameField.setText(m.eventData.get(n).name);
+	/*	if(n != -1)
+    		eventNameField.setText(m.eventData.get(n).name);	*/
     	eventNamePanel.add(eventNameField);
 
 		JPanel eventDateTimePanel = new JPanel();
@@ -214,7 +215,7 @@ public class EventView
 		eventTimeComboBoxes.add(eventTimeMeridiem);
 		
 		//If an event already exists, place its time in the combo boxes (Derick)
-		if(n != -1)
+	/*	if(n != -1)
     	{
 			int hour = m.eventData.get(n).time.hour;
 			if(hour == 0)
@@ -226,7 +227,7 @@ public class EventView
     		eventTimeHour.setSelectedIndex(java.util.Arrays.asList(HOURS).indexOf(hour));
     		eventTimeMinute.setSelectedIndex(java.util.Arrays.asList(MINUTES).indexOf(min));
     		eventTimeMeridiem.setSelectedIndex(java.util.Arrays.asList(MERIDIEM).indexOf(m.eventData.get(n).time.meridiem));
-    	}
+    	}	*/
 		
 		eventDateTimePanel.add(eventTimeComboBoxes);
 
@@ -243,6 +244,7 @@ public class EventView
     		date[1] = "0"+date[1];
     	eventDateField.setText(date[0]+"/"+date[1]+"/"+m.getCurrentYear());
 		
+    	eventDateField.setEditable(false);
 		eventDateTimePanel.add(eventDateField);
 
 		JPanel eventAlarmLocationPanel = new JPanel();
@@ -289,7 +291,7 @@ public class EventView
 		{
 			public void actionPerformed(ActionEvent evt)
 			{
-				AlarmView.AddAlarmGUI();
+				AlarmView.AddAlarmGUI(m);
 			}
 		});
 
@@ -300,8 +302,8 @@ public class EventView
 		final JTextField eventLocationField = new JTextField(25);
 		
 		//If an event already exists, place its location in the text field (Derick)
-		if(n != -1)
-    		eventLocationField.setText(m.eventData.get(n).location);
+	/*	if(n != -1)
+    		eventLocationField.setText(m.eventData.get(n).location);	*/
 		eventAlarmLocationPanel.add(eventLocationField);
 
 		JPanel eventDescriptionPanel = new JPanel();
@@ -316,8 +318,8 @@ public class EventView
 		final JTextField eventDescriptionField = new JTextField(33);
 		
 		//If an event already exists, place its description in the text field (Derick)
-		if(n != -1)
-    		eventDescriptionField.setText(m.eventData.get(n).description);
+	/*	if(n != -1)
+    		eventDescriptionField.setText(m.eventData.get(n).description);	*/
 		eventDescriptionPanel.add(eventDescriptionField);
 
 		JPanel eventCancelPanel = new JPanel();
@@ -378,40 +380,33 @@ public class EventView
 				int[] date;
 				try
 				{
-					// Wait, why do we need date, since have to choose the day
-					// to get to the EventView???
-					date = new int[]
-					{
-							Integer.parseInt(eventDateField.getText()
-									.substring(0, 2)),
-							Integer.parseInt(eventDateField.getText()
-									.substring(3, 5)),
-							Integer.parseInt(eventDateField.getText()
-									.substring(6)) };
+					date = new int[]{
+						Integer.parseInt(eventDateField.getText().substring(0, 2)),
+						Integer.parseInt(eventDateField.getText().substring(3, 5)),
+						Integer.parseInt(eventDateField.getText().substring(6)) };
 				} catch (StringIndexOutOfBoundsException e)
 				{
-					System.out
-							.println("ERROR: Invalid date. Event cannot be made.");
+					System.out.println("ERROR: Invalid date. Event cannot be made.");
 					System.out.println();
 					return;
 				}
 
-				int time = (int) eventTimeHour.getSelectedItem()
-						* 100
-						+ Integer.parseInt((String) eventTimeMinute
-								.getSelectedItem());
-				System.out.println((int) eventTimeHour.getSelectedItem()+" "+eventTimeMeridiem.getSelectedItem().equals("PM"));
+				int time = (int)eventTimeHour.getSelectedItem()*100+Integer.parseInt((String) eventTimeMinute.getSelectedItem());
+				
 				if(eventTimeMeridiem.getSelectedItem().equals("AM") && (int)eventTimeHour.getSelectedItem() == 12)
 					time -= 1200;
-				else if(eventTimeMeridiem.getSelectedItem().equals("PM"))
+				else if(eventTimeMeridiem.getSelectedItem().equals("PM") && (int)eventTimeHour.getSelectedItem() != 12)
 					time += 1200;
 
-				int[] dateTime = new int[]
-				{ date[0], date[1], date[2], time };
-				m.eventData.add(new EventData(dateTime, eventNameField
-						.getText(), eventLocationField.getText(),
-						eventDescriptionField.getText()));
-
+				int[] dateTime = new int[]{date[0], date[1], date[2], time};
+				
+			/*	if(n != -1)
+					m.eventData.remove(n);	*/
+				m.eventData.add(new EventData(dateTime,eventNameField.getText(),eventLocationField.getText(),eventDescriptionField.getText()));
+				
+				if(aView.alarm != null)
+					m.eventData.get(m.eventData.size()-1).alarm = aView.alarm;
+				
 				// TEST
 				System.out.println("Number of events: " + m.eventData.size());
 				for (EventData e : m.eventData)
@@ -422,8 +417,7 @@ public class EventView
 					System.out.println(e.description);
 					System.out.println();
 				}
-
-				// EventWriter TEST
+				
 				EventWriter eWriter = new EventWriter(m.dataBreakRef);
 				eWriter.write(m.eventData);
 			}
