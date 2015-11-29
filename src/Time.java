@@ -15,7 +15,7 @@ public class Time
 		meridiem = (hour < 12) ? "AM" : "PM";
 		if(hour > 12)
 			hour -= 12;
-			
+		hour = (hour == 0) ? 12 : hour;
 	}
 	
 	public int getTimecode()
@@ -26,6 +26,6 @@ public class Time
 	@Override
 	public String toString()
 	{
-		return ((hour == 0) ? 12 : hour)+":"+((min < 9) ? "0" : "")+min+" "+meridiem;
+		return hour+":"+((min < 9) ? "0" : "")+min+" "+meridiem;
 	}
 }

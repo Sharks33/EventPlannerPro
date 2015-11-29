@@ -12,12 +12,6 @@ import java.util.Set;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-/**
- * Model has all the data relating to the Calendar.
- * 
- * @author naghmeh
- *
- */
 public class Model
 {
 	private GregorianCalendar currentDate;
@@ -47,15 +41,20 @@ public class Model
 		eventData = new ArrayList<EventData>();
 		new EventReader().read(eventData,dataBreakRef);
 
-		File file = new File("event.ser");
+/*		File file = new File("event.ser");
 		if (file.exists())
-			load();
+			load();*/
 	}
 
+	public void test()
+	{
+		System.out.println(currentDate.get(Calendar.SECOND));
+	}
+	
 	/**
 	 * Loads the events into the data structure.
 	 */
-	private void load()
+/*	private void load()
 	{
 		System.out.println("Reading Objects...");
 		Event[] listOfEvents = null;
@@ -92,7 +91,7 @@ public class Model
 		{
 			this.createEvent(e);
 		}
-	}
+	}*/
 
 	/**
 	 * Gets the Current Date that user is currently viewing.

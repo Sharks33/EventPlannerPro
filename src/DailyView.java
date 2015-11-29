@@ -184,7 +184,7 @@ public class DailyView
 		dailyView12AMLabel.setFont(railWay);
 		for(EventData d: events)
 		{
-			if(d.time.hour == 0 && d.time.meridiem == "AM")
+			if(d.time.hour == 12 && d.time.meridiem == "AM")
 				dailyView12AMLabel.setText(dailyView12AMLabel.getText()+"   "+d.name+" "+d.time.toString()+" "+d.location+" "+d.description+"           ");
 		}
 		dailyView12AMPanel.add(dailyView12AMLabel);

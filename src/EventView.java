@@ -65,7 +65,7 @@ public class EventView
 			e1.printStackTrace();
 		}
 		
-		aView = new AlarmView(m);
+		aView = new AlarmView();//(m);
 		aView.alarm = null;
 		
 		// UPPER GUI
@@ -362,16 +362,20 @@ public class EventView
 			}
 		}// end anonymous inner class
 				);
+		
+		// Create and set up the window.
+		final JFrame frame = new JFrame("Event Planner Pro");
+		frame.setLayout(new BorderLayout());
+		frame.setBackground(Color.WHITE);
 
-		// CLOSES THE EVENT VIEW FRAME
-		cancelEventButton.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
+		frame.add(upperPannel, BorderLayout.NORTH);
+		frame.add(lowerPanel, BorderLayout.SOUTH);
 
-			}
-		});
-
+		// Display the window.
+		frame.pack();
+		frame.setVisible(true);
+		
+		
 		// EDIT: Added ActionListener to saveButton (Derick)
 		saveButton.addActionListener(new ActionListener()
 		{
@@ -408,7 +412,7 @@ public class EventView
 					m.eventData.get(m.eventData.size()-1).alarm = aView.alarm;
 				
 				// TEST
-				System.out.println("Number of events: " + m.eventData.size());
+		/*		System.out.println("Number of events: " + m.eventData.size());
 				for (EventData e : m.eventData)
 				{
 					System.out.println(e.name + " " + e.time.toString() + "	"
@@ -416,23 +420,21 @@ public class EventView
 					System.out.println(e.location);
 					System.out.println(e.description);
 					System.out.println();
-				}
+				}	*/
 				
 				EventWriter eWriter = new EventWriter(m.dataBreakRef);
 				eWriter.write(m.eventData);
+				frame.setVisible(false);
 			}
 		});
-
-		// Create and set up the window.
-		JFrame frame = new JFrame("Event Planner Pro");
-		frame.setLayout(new BorderLayout());
-		frame.setBackground(Color.WHITE);
-
-		frame.add(upperPannel, BorderLayout.NORTH);
-		frame.add(lowerPanel, BorderLayout.SOUTH);
-
-		// Display the window.
-		frame.pack();
-		frame.setVisible(true);
+		
+		// CLOSES THE EVENT VIEW FRAME
+		cancelEventButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent evt)
+			{
+				frame.setVisible(false);
+			}
+		});
 	}
 }

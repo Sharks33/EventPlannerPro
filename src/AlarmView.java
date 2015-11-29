@@ -22,7 +22,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class AlarmView extends MonthlyView
+public class AlarmView// extends MonthlyView
 {
 	final static Integer[] HOURS = new Integer[]{12,1,2,3,4,5,6,7,8,9,10,11};
 	final static String[] MINUTES = new String[]{
@@ -37,9 +37,9 @@ public class AlarmView extends MonthlyView
 	
 	static Alarm alarm;
 	
-	public AlarmView(Model m)
+	public AlarmView(/*Model m*/)
 	{
-		super(m);
+		//super(m);
 	}
 	
 	public static void AddAlarmGUI(Model m)
@@ -273,17 +273,37 @@ public class AlarmView extends MonthlyView
 			{
 			}
 		});
-
-		// CLOSES THE ALARM VIEW FRAME
-		cancelEventButton.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				
-			}
-		});
-
+		
 		lowerPanel.add(eventCancelPanel);
+		
+	 	removeButton.addActionListener(
+			new ActionListener()
+			{
+				public void actionPerformed(ActionEvent evt)
+				{
+					timeHour.setSelectedIndex(0);
+					timeMinute.setSelectedIndex(0);
+					timeMeridiem.setSelectedIndex(0);
+					dateTextField.setText("");
+					alarm = null;
+				}
+			}
+		);
+		
+		// Create and set up the window.
+
+		final JFrame frame = new JFrame("Event Planner Pro");
+		frame.setSize(600, 400);
+		frame.setLayout(new BorderLayout());
+		frame.setBackground(Color.WHITE);
+
+		frame.add(upperPannel, BorderLayout.NORTH);
+		frame.add(lowerPanel, BorderLayout.SOUTH);
+
+		// Display the window.
+		frame.pack();
+		frame.setVisible(true);
+		
 		
 		saveButton.addActionListener(
 		    	new ActionListener()
@@ -309,32 +329,18 @@ public class AlarmView extends MonthlyView
 	    					time += 1200;
 	    				
 	    				alarm = new Alarm(new int[]{date[0],date[1],date[2],time});
+	    				frame.setVisible(false);
 	    			}
 	    		}
 		    );
-			
-	 		removeButton.addActionListener(
-				new ActionListener()
-				{
-					public void actionPerformed(ActionEvent evt)
-					{
-						alarm = null;
-					}
-				}
-			);
 		
-		// Create and set up the window.
-
-		JFrame frame = new JFrame("Event Planner Pro");
-		frame.setSize(600, 400);
-		frame.setLayout(new BorderLayout());
-		frame.setBackground(Color.WHITE);
-
-		frame.add(upperPannel, BorderLayout.NORTH);
-		frame.add(lowerPanel, BorderLayout.SOUTH);
-
-		// Display the window.
-		frame.pack();
-		frame.setVisible(true);
+		// CLOSES THE ALARM VIEW FRAME
+		cancelEventButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent evt)
+			{
+				frame.setVisible(false);
+			}
+		});
 	}
 }
