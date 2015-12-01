@@ -241,7 +241,7 @@ public class MonthlyView extends JPanel implements ChangeListener
 				}
 			});
 		}
-		for (int i = 0; i <= daysInMonth; i++)
+		for (int i = 0; i < daysInMonth; i++)
 		{
 			dayDayPanel.add(dayButton[i]);
 			dayButton[i].setPreferredSize(new Dimension(205, 90));
