@@ -428,6 +428,19 @@ public class EventView
 			}
 		});
 		
+		removeButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent evt)
+			{
+				eventNameField.setText("");
+				eventLocationField.setText("");
+				eventDescriptionField.setText("");
+				eventTimeHour.setSelectedIndex(0);
+				eventTimeMinute.setSelectedIndex(0);
+				eventTimeMeridiem.setSelectedIndex(0);
+			}
+		});
+		
 		// CLOSES THE EVENT VIEW FRAME
 		cancelEventButton.addActionListener(new ActionListener()
 		{

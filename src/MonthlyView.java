@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -17,6 +18,7 @@ import java.util.Collections;
 import java.util.GregorianCalendar;
 
 import javax.imageio.ImageIO;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -251,6 +253,11 @@ public class MonthlyView extends JPanel implements ChangeListener
 			{
 				dayButton[i].setBackground(lightBlue);
 			}
+			
+			//Adding icon to days if event exists
+			dayButton[i].setLayout(new BoxLayout(dayButton[i],BoxLayout.X_AXIS));
+			dayButton[i].add(Box.createRigidArea(new Dimension(170,0)));
+			dayButton[i].add(new EventBadge(30,90,MONTHS.valueOf(model.getCurrentMonth()+"").ordinal()+1,i+1,model.getCurrentYear()));
 		}
 		dayViewPanel = new JPanel();
 		dayViewPanel.setLayout(new BorderLayout());
@@ -385,9 +392,8 @@ public class MonthlyView extends JPanel implements ChangeListener
 		monthViewPanel.add(dayDayPanel);
 		monthViewPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		dayDayPanel.setBackground(Color.WHITE);
-
+		
 		add(monthViewPanel);
-
 	}
 
 	/**
@@ -426,7 +432,13 @@ public class MonthlyView extends JPanel implements ChangeListener
 		for (int i = 0; i < daysInMonth; i++)
 		{
 			dayButton[i].setPreferredSize(new Dimension(205, 90));
+			
+			dayButton[i].removeAll();
+			dayButton[i].add(Box.createRigidArea(new Dimension(170,0)));
+			dayButton[i].add(new EventBadge(30,90,MONTHS.valueOf(model.getCurrentMonth()+"").ordinal()+1,i+1,model.getCurrentYear()));
+			
 			dayDayPanel.add(dayButton[i]);
+			
 			foo.set(model.getCurrentYear(),
 					model.getCurrentDate().get(Calendar.MONTH), i + 1);
 			String star = "";
@@ -560,5 +572,52 @@ public class MonthlyView extends JPanel implements ChangeListener
 		repaint();
 		revalidate();
 
+	}
+	
+	private class EventBadge extends JPanel
+	{
+		int width, events;
+		int[] date;
+		
+		public EventBadge(int w, int h, int m, int d, int y)
+		{
+			width = w;
+			date = new int[]{m,d,y};
+			
+			setPreferredSize(new Dimension(w,h));
+			setOpaque(false);
+		}
+		
+		public void paintComponent(Graphics g)
+		{
+			super.paintComponent(g);
+			
+			events = 0;
+			for(EventData e: model.eventData)
+			{
+				if(e.date[0] == date[0] && e.date[1] == date[1] && e.date[2] == date[2])
+					events++;
+			}
+			
+			if(events > 0)
+			{
+				Color oldColor = g.getColor();
+				Font oldFont = g.getFont();
+				Font newFont = new Font("Raleway-Regular", Font.BOLD, 15);
+				
+				g.setColor(babyTeal);
+				g.fillOval(0,2,width,width);
+				
+				g.setColor(Color.WHITE);
+				g.setFont(newFont);
+				
+				String e = (events > 9)? "9+" : events+"";
+				g.drawString(e,width/2-g.getFontMetrics(newFont).stringWidth(e)/2,20);
+				
+				g.setColor(oldColor);
+				g.setFont(oldFont);
+			}
+			repaint();
+		}
 	}
 }
